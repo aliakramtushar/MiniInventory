@@ -1,0 +1,47 @@
+# Build results
+bin/
+obj/
+out/
+*.log
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio settings
+.vscode/
+.vs/
+
+# ASP.NET Core secrets
+secrets.json
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.*.json.user
+
+# Publish output
+publish/
+wwwroot/dist/
+wwwroot/node_modules/
+
+# NPM & node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Others
+*.db
+*.sqlite
+*.pdb
+*.cache
+
+# JetBrains Rider
+.idea/
+
+# ReSharper
+*.DotSettings.user
+
+# Mac and Linux
+.DS_Store
+Thumbs.db
