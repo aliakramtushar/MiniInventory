@@ -43,7 +43,7 @@ namespace Inventory.Application.Repositories.Implementations
         public async Task<IEnumerable<Product>> ListAsync(string filter = null)
         {
             return await _context.Products
-                                .Where(p => !p.IsDeleted)
+                                //.Where(p => !p.IsDeleted)
                                 .ToListAsync();
         }
 

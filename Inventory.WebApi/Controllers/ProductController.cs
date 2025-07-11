@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Inventory.WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
