@@ -1,0 +1,790 @@
+{
+	"info": {
+		"_postman_id": "5eaaa688-0fdf-4d3b-8657-86cee5a858de",
+		"name": "Inventory",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26860434"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/customer?pageNumber=1&pageSize=5",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"customer"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "search",
+									"value": "AAA",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/customer/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"Ali Akram\",\r\n  \"phone\": \"01521218122\",\r\n  \"email\": \"aliakramtushar@gmail.com\",\r\n  \"loyaltyPoints\": 0,\r\n  \"isDeleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/customer",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": 1,\r\n  \"fullName\": \"AAA\",\r\n  \"phone\": \"0147854524\",\r\n  \"email\": \"xyz@gmail.com\",\r\n  \"loyaltyPoints\": 10,\r\n  \"isDeleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/customer/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/customer/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/product?pageNumber=1&pageSize=5",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "search",
+									"value": "777",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/product/2",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"product",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Product 4\",\r\n  \"barcode\": \"123456\",\r\n  \"price\": 50,\r\n  \"stockQty\": 10,\r\n  \"category\": \"Special\",\r\n  \"isActive\": true,\r\n  \"isDeleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/product",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productId\": 1,\r\n  \"name\": \"Product 777\",\r\n  \"barcode\": \"123456\",\r\n  \"price\": 50,\r\n  \"stockQty\": 10,\r\n  \"category\": \"Special\",\r\n  \"isActive\": true,\r\n  \"isDeleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/product/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/product/2",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"product",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sale",
+			"item": [
+				{
+					"name": "Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/sale/summary?startDate=2025-07-01&endDate=2025-07-15",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sale",
+								"summary"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-07-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-07-15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sale",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"saleDate\": \"2025-07-13T15:30:00\",\r\n  \"customerId\": 1,\r\n  \"totalAmount\": 1000.00,\r\n  \"paidAmount\": 700.00,\r\n  \"dueAmount\": 300.00,\r\n  \"saleDetails\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 1,\r\n      \"price\": 250.00\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1,\r\n      \"price\": 500.00\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/sale",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sale"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();\r",
+									"pm.environment.set(\"token\", data.token);\r",
+									"pm.environment.set(\"refreshToken\", data.refreshToken);\r",
+									"\r",
+									" "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/auth/login",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.unset(\"token\");\r",
+									"pm.environment.unset(\"refreshToken\");\r",
+									"\r",
+									"console.log(\"Access token and refresh token cleared from environment.\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refreshToken\": \"e7f91473-561d-4290-bdd2-39af89bb400b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/auth/logout",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"pm.environment.set(\"token\", jsonData.token);\r",
+									" "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refreshToken\": \"your-token-here\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/auth/refresh",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Create Sale (1st)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"saleDate\": \"2025-07-13T15:30:00\",\r\n  \"customerId\": 1,\r\n  \"totalAmount\": 1000.00,\r\n  \"paidAmount\": 700.00,\r\n  \"dueAmount\": 300.00,\r\n  \"saleDetails\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 1,\r\n      \"price\": 250.00\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1,\r\n      \"price\": 500.00\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/sale",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sale (2nd)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"saleDate\": \"2025-07-13T15:30:00\",\r\n  \"customerId\": 1,\r\n  \"totalAmount\": 1000.00,\r\n  \"paidAmount\": 700.00,\r\n  \"dueAmount\": 300.00,\r\n  \"saleDetails\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 1,\r\n      \"price\": 250.00\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1,\r\n      \"price\": 500.00\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/sale",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sale (3rd)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"saleDate\": \"2025-07-13T15:30:00\",\r\n  \"customerId\": 1,\r\n  \"totalAmount\": 1000.00,\r\n  \"paidAmount\": 700.00,\r\n  \"dueAmount\": 300.00,\r\n  \"saleDetails\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 1,\r\n      \"price\": 250.00\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1,\r\n      \"price\": 500.00\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/sale",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sale (4th)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"saleDate\": \"2025-07-13T15:30:00\",\r\n  \"customerId\": 1,\r\n  \"totalAmount\": 1000.00,\r\n  \"paidAmount\": 700.00,\r\n  \"dueAmount\": 300.00,\r\n  \"saleDetails\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 1,\r\n      \"price\": 250.00\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1,\r\n      \"price\": 500.00\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/sale",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"sale"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Open all this request in different tab and call api one by one. this is the easiest test"
+		}
+	]
+}
