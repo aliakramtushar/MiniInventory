@@ -1,7 +1,7 @@
 ﻿using Inventory.Application.Services;
 using Inventory.Domain.Entities;
+using Inventory.WebApi.Models; // for ApiResponse<T>
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inventory.WebApi.Controllers
@@ -12,10 +12,12 @@ namespace Inventory.WebApi.Controllers
     public class SaleController : ControllerBase
     {
         private readonly ISaleService _saleService;
+        private readonly ILogger<SaleController> _logger;
 
-        public SaleController(ISaleService saleService)
+        public SaleController(ISaleService saleService, ILogger<SaleController> logger)
         {
             _saleService = saleService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -24,20 +26,41 @@ namespace Inventory.WebApi.Controllers
             try
             {
                 var result = await _saleService.ProcessSaleAsync(sale);
-                return Ok(result);
+                return Ok(ApiResponse<Sale>.Success(result));
             }
-            catch (InvalidOperationException ex)
+            catch (ArgumentException ex)
             {
-                return BadRequest(new { error = ex.Message });
+                return BadRequest(ApiResponse<string>.Fail(ex.Message, 400));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ApiResponse<string>.Fail(ex.Message, 404));
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("Too many concurrent sales"))
+            {
+                return StatusCode(429, ApiResponse<string>.Fail(ex.Message, 429));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error processing sale.");
+                return StatusCode(500, ApiResponse<string>.Fail("Something went wrong.", 500));
             }
         }
+
 
         [HttpGet("summary")]
         public async Task<IActionResult> GetSalesSummary([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            var summary = await _saleService.GetSalesSummaryAsync(startDate, endDate);
-            return Ok(summary);
+            try
+            {
+                var summary = await _saleService.GetSalesSummaryAsync(startDate, endDate);
+                return Ok(ApiResponse<object>.Success(summary, "Sales summary fetched"));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching sales summary");
+                return StatusCode(500, ApiResponse<string>.Fail("Failed to fetch sales summary", 500));
+            }
         }
     }
-
 }

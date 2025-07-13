@@ -101,7 +101,16 @@ namespace Inventory.WebApi.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DiscountPercent")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("DueAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FinalTotal")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PaidAmount")
@@ -111,6 +120,9 @@ namespace Inventory.WebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("SaleId");

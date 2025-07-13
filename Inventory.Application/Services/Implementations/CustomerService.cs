@@ -1,4 +1,6 @@
-﻿using Inventory.Application.Repositories;
+﻿using Inventory.Application.DTOs;
+using Inventory.Application.Repositories;
+using Inventory.Application.Repositories.Implementations;
 using Inventory.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,9 +19,9 @@ namespace Inventory.Application.Services.Implementations
             _customerRepository = customerRepository;
         }
 
-        public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
+        public async Task<PagedResult<Customer>> GetPagedCustomersAsync(int pageNumber, int pageSize, string search)
         {
-            return await _customerRepository.GetAllAsync();
+            return await _customerRepository.ListPagedAsync(pageNumber, pageSize, search);
         }
 
         public async Task<Customer?> GetCustomerByIdAsync(int customerId)

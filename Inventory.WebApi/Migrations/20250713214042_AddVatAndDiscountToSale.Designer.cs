@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250710220613_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250713214042_AddVatAndDiscountToSale")]
+    partial class AddVatAndDiscountToSale
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,7 +104,16 @@ namespace Inventory.WebApi.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DiscountPercent")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("DueAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FinalTotal")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("PaidAmount")
@@ -114,6 +123,9 @@ namespace Inventory.WebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("SaleId");

@@ -14,6 +14,9 @@ namespace Inventory.WebApi.Controllers
     {
         private readonly IConfiguration _configuration;
 
+        // 🔐 In-memory refresh token store (for demo)
+        private static readonly Dictionary<string, string> _refreshTokens = new();
+
         public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -25,31 +28,62 @@ namespace Inventory.WebApi.Controllers
             if (login.Username == "admin" && login.Password == "admin123")
             {
                 var token = GenerateJwtToken(login.Username);
-                var refreshToken = Guid.NewGuid().ToString(); // You could store this in DB
-                return Ok(new { Token = token, RefreshToken = refreshToken });
+                var refreshToken = Guid.NewGuid().ToString();
+
+                // Store refresh token mapped to the user
+                _refreshTokens[refreshToken] = login.Username;
+
+                return Ok(new
+                {
+                    Token = token,
+                    RefreshToken = refreshToken
+                });
             }
 
             return Unauthorized("Invalid credentials.");
         }
 
         [HttpPost("refresh")]
-        public IActionResult RefreshToken([FromBody] string refreshToken)
+        public IActionResult RefreshToken([FromBody] RefreshTokenDto model)
         {
-            // Validate refreshToken from DB if applicable
-            var newToken = GenerateJwtToken("admin");
-            return Ok(new { Token = newToken });
+            if (_refreshTokens.TryGetValue(model.RefreshToken, out var username))
+            {
+                var newToken = GenerateJwtToken(username);
+                var newRefreshToken = Guid.NewGuid().ToString();
+
+                // Replace old token with new one
+                _refreshTokens.Remove(model.RefreshToken);
+                _refreshTokens[newRefreshToken] = username;
+
+                return Ok(new
+                {
+                    Token = newToken,
+                    RefreshToken = newRefreshToken
+                });
+            }
+
+            return Unauthorized("Invalid or expired refresh token.");
         }
 
         [HttpPost("logout")]
-        public IActionResult Logout()
+        public IActionResult Logout([FromBody] RefreshTokenDto model)
         {
-            // Revoke tokens if stored
-            return Ok("Logged out successfully.");
+            if (_refreshTokens.ContainsKey(model.RefreshToken))
+            {
+                _refreshTokens.Remove(model.RefreshToken);
+                return Ok("Logged out successfully.");
+            }
+
+            return BadRequest("Invalid refresh token.");
         }
 
         private string GenerateJwtToken(string username)
         {
-            var claims = new[] { new Claim(ClaimTypes.Name, username) };
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, username)
+            };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpireMinutes"]));
@@ -64,5 +98,4 @@ namespace Inventory.WebApi.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
-
 }

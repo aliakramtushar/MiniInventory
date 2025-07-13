@@ -1,4 +1,5 @@
-﻿using Inventory.Domain.Entities;
+﻿using Inventory.Application.DTOs;
+using Inventory.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Inventory.Application.Repositories
         Task AddAsync(Product product);
         Task UpdateAsync(Product product);
         Task DeleteAsync(int productId);
-        Task<IEnumerable<Product>> ListAsync(string filter = null);
+        Task<PagedResult<Product>> ListPagedAsync(int pageNumber, int pageSize, string search);
         Task<Product> GetByIdAsync(int id);
     }
 }

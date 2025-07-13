@@ -1,15 +1,11 @@
-﻿using Inventory.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Inventory.Application.DTOs;
+using Inventory.Domain.Entities;
 
 namespace Inventory.Application.Repositories
 {
     public interface ICustomerRepository
     {
-        Task<IEnumerable<Customer>> GetAllAsync();
+        Task<PagedResult<Customer>> ListPagedAsync(int pageNumber, int pageSize, string search);
         Task<Customer?> GetByIdAsync(int customerId);
         Task AddAsync(Customer customer);
         Task UpdateAsync(Customer customer);

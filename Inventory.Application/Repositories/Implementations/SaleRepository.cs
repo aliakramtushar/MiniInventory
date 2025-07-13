@@ -1,11 +1,6 @@
 ﻿using Inventory.Domain.Entities;
 using Inventory.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Inventory.Application.Repositories.Implementations
 {
@@ -20,18 +15,6 @@ namespace Inventory.Application.Repositories.Implementations
 
         public async Task<Sale> CreateSaleAsync(Sale sale)
         {
-            foreach (var detail in sale.SaleDetails)
-            {
-                var product = await _context.Products.FindAsync(detail.ProductId);
-                if (product == null || product.StockQty < detail.Quantity)
-                {
-                    throw new InvalidOperationException("Insufficient stock.");
-                }
-
-                product.StockQty -= detail.Quantity;
-            }
-
-            await Task.Delay(3000); // Simulate processing delay
             _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
 
@@ -46,5 +29,4 @@ namespace Inventory.Application.Repositories.Implementations
                 .ToListAsync();
         }
     }
-
 }

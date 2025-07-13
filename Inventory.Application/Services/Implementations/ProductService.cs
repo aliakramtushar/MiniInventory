@@ -1,4 +1,5 @@
-﻿using Inventory.Application.Repositories;
+﻿using Inventory.Application.DTOs;
+using Inventory.Application.Repositories;
 using Inventory.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,12 @@ namespace Inventory.Application.Services.Implementations
             _productRepository = productRepository;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+
+        public async Task<PagedResult<Product>> GetPagedProductsAsync(int pageNumber, int pageSize, string search)
         {
-            return await _productRepository.ListAsync();
+            return await _productRepository.ListPagedAsync(pageNumber, pageSize, search);
         }
+
 
         public async Task<Product?> GetProductByIdAsync(int productId)
         {
@@ -29,7 +32,6 @@ namespace Inventory.Application.Services.Implementations
 
         public async Task AddProductAsync(Product product)
         {
-            // Add validation or business logic here if needed
             await _productRepository.AddAsync(product);
         }
 

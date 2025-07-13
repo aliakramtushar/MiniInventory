@@ -1,4 +1,5 @@
-﻿using Inventory.Domain.Entities;
+﻿using Inventory.Application.DTOs;
+using Inventory.Domain.Entities;
 using Inventory.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,17 +19,36 @@ namespace Inventory.Application.Repositories.Implementations
             _context = context;
         }
 
-        public async Task<IEnumerable<Customer>> GetAllAsync()
+        public async Task<PagedResult<Customer>> ListPagedAsync(int pageNumber, int pageSize, string search)
         {
-            return await _context.Customers
-                .Where(c => !c.IsDeleted)
+            var query = _context.Customers.Where(p => p.IsDeleted != true).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var searchLower = search.ToLower();
+                query = query.Where(p => p.FullName.ToLower().Contains(searchLower));
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
+
+            return new PagedResult<Customer>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
         }
 
         public async Task<Customer?> GetByIdAsync(int customerId)
         {
             return await _context.Customers
-                .FirstOrDefaultAsync(c => c.CustomerId == customerId && !c.IsDeleted);
+                .FirstOrDefaultAsync(c => c.CustomerId == customerId);
         }
 
         public async Task AddAsync(Customer customer)
@@ -53,5 +73,4 @@ namespace Inventory.Application.Repositories.Implementations
             }
         }
     }
-
 }
